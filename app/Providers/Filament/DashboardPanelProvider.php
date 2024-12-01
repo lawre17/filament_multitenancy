@@ -53,6 +53,8 @@ class DashboardPanelProvider extends PanelProvider
             ])
             ->authMiddleware([
                 Authenticate::class,
+                \Spatie\Multitenancy\Http\Middleware\NeedsTenant::class,
+                \Spatie\Multitenancy\Http\Middleware\EnsureValidTenantSession::class,
             ]);
     }
 }
