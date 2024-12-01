@@ -10,8 +10,6 @@ use Illuminate\Support\Facades\Auth;
 
 class FilamentServing
 {
-
-
     /**
      * Handle the event.
      */
