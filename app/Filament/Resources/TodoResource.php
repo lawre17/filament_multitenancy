@@ -79,4 +79,11 @@ class TodoResource extends Resource
             'edit' => Pages\EditTodo::route('/{record}/edit'),
         ];
     }
+
+    public static function getEloquentQuery(): Builder
+    {
+        $query = static::getModel()::where('tenant_user_id', Filament::auth()->getUser()->id);
+
+        return $query;
+    }
 }
