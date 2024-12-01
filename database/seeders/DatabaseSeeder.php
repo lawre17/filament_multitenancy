@@ -7,6 +7,7 @@ use App\Models\TenantUser;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class DatabaseSeeder extends Seeder
 {
@@ -45,6 +46,13 @@ class DatabaseSeeder extends Seeder
 
         //create a tenant
         $tenants = Tenant::factory(2)->create();
+
+        //create data for the tenant if not exists
+
+        $tenants->each(function ($tenant) {
+
+             DB::statement("CREATE DATABASE IF NOT EXISTS " .$tenant->database);
+        });
 
         //create a user for the tenant
 
