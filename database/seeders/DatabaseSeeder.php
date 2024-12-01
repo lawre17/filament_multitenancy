@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Tenant;
 use App\Models\TenantUser;
+use App\Models\Todo;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -30,13 +31,21 @@ class DatabaseSeeder extends Seeder
 
         $tenant->users()->each(function ($user) {
 
-            TenantUser::factory()->create([
+            $tenantUser = TenantUser::factory()->create([
                 'name' => $user->name,
                 'email' => $user->email,
                 'password' => $user->password,
                 'email_verified_at' => $user->email_verified_at,
             ]);
+
+            //create todos for the tenant user
+
+           Todo::factory(10)->create([
+
+                'tenant_user_id' => $tenantUser->id,
+            ]);
         });
+
 
     }
 
