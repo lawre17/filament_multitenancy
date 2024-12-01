@@ -32,6 +32,7 @@ class DatabaseSeeder extends Seeder
         $tenant->users()->each(function ($user) {
 
             $tenantUser = TenantUser::factory()->create([
+                'id' => $user->id,
                 'name' => $user->name,
                 'email' => $user->email,
                 'password' => $user->password,
@@ -41,7 +42,7 @@ class DatabaseSeeder extends Seeder
             //create todos for the tenant user
 
            Todo::factory(10)->create([
-
+                'title' => 'Todo for  '.rand(0,1000) . $tenantUser->name,
                 'tenant_user_id' => $tenantUser->id,
             ]);
         });

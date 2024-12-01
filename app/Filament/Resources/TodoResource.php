@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\TodoResource\Pages;
 use App\Filament\Resources\TodoResource\RelationManagers;
 use App\Models\Todo;
+use Filament\Facades\Filament;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -17,13 +18,22 @@ class TodoResource extends Resource
 {
     protected static ?string $model = Todo::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-numbered-list';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                //
+                Forms\Components\TextInput::make('title')
+                    ->label('Title')
+                    ->required(),
+                Forms\Components\Textarea::make('description')
+                    ->label('Description')
+                    ->required(),
+                Forms\Components\Hidden::make('tenant_user_id')
+                    ->default(function () {
+                        return Filament::auth()->getUser()->id;
+                    }),
             ]);
     }
 
@@ -31,7 +41,15 @@ class TodoResource extends Resource
     {
         return $table
             ->columns([
-                //
+
+                Tables\Columns\TextColumn::make('title')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('description')
+                    ->wrap()
+                    ->searchable(),
+                Tables\Columns\ToggleColumn::make('completed')
+                    ->label('Completed')
+                    ->alignEnd(),
             ])
             ->filters([
                 //

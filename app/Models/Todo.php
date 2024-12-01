@@ -15,6 +15,6 @@ class Todo extends Model
 
     public function user()
     {
-        return $this->belongsTo(TenantUser::class);
+        return $this->belongsTo(TenantUser::class,'tenant_user_id');
     }
 }

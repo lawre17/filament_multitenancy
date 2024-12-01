@@ -2,6 +2,7 @@
 
 namespace App\Providers\Filament;
 
+use App\Models\Tenant;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
@@ -26,6 +27,11 @@ class DashboardPanelProvider extends PanelProvider
             ->default()
             ->id('dashboard')
             ->path('dashboard')
+            ->brandName( function () {
+
+                $tenant = Tenant::current();
+                return $tenant ? $tenant->name :  config('app.name');
+            })
             ->login()
             ->colors([
                 'primary' => Color::Amber,
