@@ -29,7 +29,7 @@ it('can create a todo', function () {
         ->fillForm([
             'title' => $todo->title,
             'description' => $todo->description,
-            'completed' => $todo->completed,
+            'completed' => (bool)$todo->completed,
             'tenant_user_id' => $user->id,
         ])
         ->call('create')
@@ -38,7 +38,7 @@ it('can create a todo', function () {
     $this->assertDatabaseHas(Todo::class, [
         'title' => $todo->title,
         'description' => $todo->description,
-        'completed' => $todo->completed,
+        'completed' => (bool)$todo->completed,
         'tenant_user_id' => $user->id,
     ]);
 });
@@ -79,7 +79,7 @@ it('can retrieve todo data', function () {
         ->assertFormSet([
             'title' => $todo->title,
             'description' => $todo->description,
-            'completed' => $todo->completed,
+            'completed' => (bool)$todo->completed,
             'tenant_user_id' => $todo->tenant_user_id,
         ]);
 });
@@ -98,7 +98,7 @@ it('can update a todo', function () {
         ->fillForm([
             'title' => $newTodo->title,
             'description' => $newTodo->description,
-            'completed' => $newTodo->completed,
+            'completed' => (bool)$newTodo->completed,
             'tenant_user_id' => $user->id,
         ])
         ->call('save')
@@ -107,7 +107,7 @@ it('can update a todo', function () {
     expect($todo->refresh())
         ->title->toBe($newTodo->title)
         ->description->toBe($newTodo->description)
-        ->completed->toBe($newTodo->completed)
+        ->completed->toBe((bool)$newTodo->completed)
         ->tenant_user_id->toBe($user->id);
 
 });
