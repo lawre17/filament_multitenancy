@@ -30,13 +30,20 @@
 ## Usage
 
 1. Set up your environment variables in the `.env` file.
+
+    ```bash
+    cp .env.example .env
+
+    php artisan key:generate
+    ```
+
 2. Run the landlord database migrations and seed:
     ```bash
     php artisan migrate --seed --path=database/migrations/landlord --database=landlord
     ```
 3. Run the tenants database migrations and seed:
     ```bash
-    php artisan tenants:artisan "migrate --database=tenant --seed"
+    php artisan tenants:artisan "migrate --database=tenants --seed"
     ```
 4. Start the development server:
     ```bash
