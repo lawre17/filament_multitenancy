@@ -13,6 +13,10 @@ class Todo extends Model
 
     protected $guarded = [];
 
+    protected $casts = [
+        'completed' => 'boolean',
+    ];
+
     public function user()
     {
         return $this->belongsTo(TenantUser::class,'tenant_user_id');
